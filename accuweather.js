@@ -6,9 +6,13 @@
             let searchTerm = $("#search-term");
             let searchButton = $("#search-button");
             let weatherResponse = $("#weather-response");
-            var apiKey = "1xLQjfls8wGi2Ad54vFsEpTZ0Ln5n8rS";
+            let accuLink = $("#accu-link");
+            accuLink.hide();
+            let forecastResponse = $("#forecast-response");
+            var apiKey = "AqPgKn5zXSMAjN7R3yR9meGog9zEz5T5";
             let locationUrl = "";
             let conditionsUrl = "";
+            let forecastUrl = "";
             let locationKey = "";
             let cityName = "";
 
@@ -21,25 +25,42 @@
                     url: locationUrl,
                     dataType: "jsonp",
                     cache: true,
-                    jsonpCallback: "awxCallback",
                     success: function (data) {
                         locationKey = data[0].Key;
                         cityName = data[0].EnglishName;
                         conditionsUrl = "http://dataservice.accuweather.com/currentconditions/v1/" +
-                        locationKey + "?apikey=" + apiKey;
+                                        locationKey + "?apikey=" + apiKey;
+                        forecastUrl = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
+                                      locationKey + "?apikey=" + apiKey;
 
                         $.ajax({
                             type: "GET",
                             url: conditionsUrl,
                             dataType: "jsonp",
                             cache: true,
-                            jsonpCallback: "awxCallback",
                             success: function (data) {
                                 weatherResponse.html('The weather in ' + cityName + ' is ' + data[0].WeatherText +
                                 ' and ' + data[0].Temperature.Imperial.Value + '°F.');
+                                accuLink.html('For more information visit: ' + data[0].Link);
+                                accuLink.show();
                             },
                             error: function (xhr) {
-                                weatherResponse.html('HTTP ' + xhr.status + 'error');
+                                weatherResponse.html('HTTP ' + xhr.status + 'error: current');
+                            }
+                        });
+
+                        $.ajax({
+                            type: "GET",
+                            url: forecastUrl,
+                            dataType: "jsonp",
+                            cache: true,
+                            success: function (data) {
+                                forecastResponse.html('The lowest temperature today will be ' +
+                                data.DailyForecasts[0].Temperature.Minimum.Value + '°F, and the highest will be ' +
+                                data.DailyForecasts[0].Temperature.Maximum.Value + '°F.');
+                            },
+                            error: function (xhr) {
+                                weatherResponse.html('HTTP ' + xhr.status + 'error: forecast');
                             }
                         });
 

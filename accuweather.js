@@ -3,35 +3,50 @@
 (() => {
     window.AccuWeatherReport = {
         init: () => {
-            let searchButton = $("#search-button");
             let searchTerm = $("#search-term");
+            let searchButton = $("#search-button");
             let weatherResponse = $("#weather-response");
-            const apiKey = "d8EOBzKoMMzcU2IMemWuArv5foAi3U6U";
+            var apiKey = "d8EOBzKoMMzcU2IMemWuArv5foAi3U6U";
+            let locationUrl = "";
+            let conditionsUrl = "";
             let locationKey = "";
+            let cityName = "";
 
-            searchButton.click(function() {
+            searchButton.click(() => {
+                locationUrl = "http://dataservice.accuweather.com/locations/v1/search?apikey=" + apiKey + "&q=" + searchTerm.val();
 
-                $.post("http://dataservice.accuweather.com/locations/v1/search",
-                    {
-                        apikey: apiKey,
-                        q: searchTerm,
-                        language: "en-us",
-                        boolean: true,
-                        offset: 1
+                $.ajax({
+                    type: "GET",
+                    url: locationUrl,
+                    dataType: "jsonp",
+                    cache: true,
+                    jsonpCallback: "awxCallback",
+                    success: function (data) {
+                        locationKey = data[0].Key;
+                        cityName = data[0].EnglishName;
+                        conditionsUrl = "http://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=" + apiKey;
+
+                        $.ajax({
+                            type: "GET",
+                            url: conditionsUrl,
+                            dataType: "jsonp",
+                            cache: true,
+                            jsonpCallback: "awxCallback",
+                            success: function (data) {
+                                weatherResponse.html('The weather in ' + cityName + ' is ' + data[0].WeatherText + ' and ' + data[0].Temperature.Imperial.Value + '°F.');
+                            },
+                            error: function (a, b, c) {
+                                weatherResponse.html('HTTP ' + a.status + 'error');
+                            }
+                        });
+
                     },
-                    function(data) {
-                        locationKey === data[0].Key;
-                    });
+                    error: function () {
+                        weatherResponse.html('No results found. Please try again.');
+                    }
 
-                $.post("http://dataservice.accuweather.com/currentconditions/v1/" + locationKey,
-                    {
-                        apikey: apiKey,
-                        language: "en-us",
-                        boolean: true
-                    },
-                    function(data) {
-                        weatherResponse.html("The weather in " + searchTerm + " is " + data[0].WeatherText + ".");
-                    });
+                });
+
             });
 
             searchTerm.bind("input", () => searchButton.prop("disabled", !searchTerm.val()));

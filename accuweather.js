@@ -6,7 +6,7 @@
             let searchTerm = $("#search-term");
             let searchButton = $("#search-button");
             let weatherResponse = $("#weather-response");
-            var apiKey = "d8EOBzKoMMzcU2IMemWuArv5foAi3U6U";
+            var apiKey = "1xLQjfls8wGi2Ad54vFsEpTZ0Ln5n8rS";
             let locationUrl = "";
             let conditionsUrl = "";
             let locationKey = "";
@@ -35,14 +35,14 @@
                             success: function (data) {
                                 weatherResponse.html('The weather in ' + cityName + ' is ' + data[0].WeatherText + ' and ' + data[0].Temperature.Imperial.Value + '°F.');
                             },
-                            error: function (a, b, c) {
-                                weatherResponse.html('HTTP ' + a.status + 'error');
+                            error: function (xhr) {
+                                weatherResponse.html('HTTP ' + xhr.status + 'error');
                             }
                         });
 
                     },
-                    error: function () {
-                        weatherResponse.html('No results found. Please try again.');
+                    error: function (xhr) {
+                        weatherResponse.html('No results found. Please try again. ' + xhr.status);
                     }
 
                 });

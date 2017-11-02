@@ -13,7 +13,8 @@
             let cityName = "";
 
             searchButton.click(() => {
-                locationUrl = "http://dataservice.accuweather.com/locations/v1/search?apikey=" + apiKey + "&q=" + searchTerm.val();
+                locationUrl = "http://dataservice.accuweather.com/locations/v1/search?apikey=" +
+                apiKey + "&q=" + searchTerm.val();
 
                 $.ajax({
                     type: "GET",
@@ -24,7 +25,8 @@
                     success: function (data) {
                         locationKey = data[0].Key;
                         cityName = data[0].EnglishName;
-                        conditionsUrl = "http://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=" + apiKey;
+                        conditionsUrl = "http://dataservice.accuweather.com/currentconditions/v1/" +
+                        locationKey + "?apikey=" + apiKey;
 
                         $.ajax({
                             type: "GET",
@@ -33,7 +35,8 @@
                             cache: true,
                             jsonpCallback: "awxCallback",
                             success: function (data) {
-                                weatherResponse.html('The weather in ' + cityName + ' is ' + data[0].WeatherText + ' and ' + data[0].Temperature.Imperial.Value + '°F.');
+                                weatherResponse.html('The weather in ' + cityName + ' is ' + data[0].WeatherText +
+                                ' and ' + data[0].Temperature.Imperial.Value + '°F.');
                             },
                             error: function (xhr) {
                                 weatherResponse.html('HTTP ' + xhr.status + 'error');

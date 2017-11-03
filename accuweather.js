@@ -41,7 +41,8 @@
                             success: function (data) {
                                 weatherResponse.html('The weather in ' + cityName + ' is ' + data[0].WeatherText +
                                 ' and ' + data[0].Temperature.Imperial.Value + '°F.');
-                                accuLink.html('For more information visit: ' + data[0].Link);
+                                accuLink.html('For more information visit: <a href="' +
+                                data[0].Link + '">' + data[0].Link + '</a>');
                                 accuLink.show();
                             },
                             error: function (xhr) {

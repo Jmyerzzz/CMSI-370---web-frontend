@@ -9,7 +9,7 @@
             let accuLink = $("#accu-link");
             accuLink.hide();
             let forecastResponse = $("#forecast-response");
-            var apiKey = "AqPgKn5zXSMAjN7R3yR9meGog9zEz5T5";
+            var apiKey = "4XuJGqBiNNCg3tbEpZ1kOBjetxmbbNbG";
             let locationUrl = "";
             let conditionsUrl = "";
             let forecastUrl = "";
@@ -42,7 +42,7 @@
                                 weatherResponse.html('The weather in ' + cityName + ' is ' + data[0].WeatherText +
                                 ' and ' + data[0].Temperature.Imperial.Value + '°F.');
                                 accuLink.html('For more information visit: <a href="' +
-                                data[0].Link + '">' + data[0].Link + '</a>');
+                                data[0].Link + '"> ' + data[0].Link + '</a>');
                                 accuLink.show();
                             },
                             error: function (xhr) {

@@ -1,0 +1,20 @@
+.handle {
+    width: 25px;
+    height: 25px;
+    background: orange;
+    border-radius: 35%;
+    background-color: #99ccff;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.rectangle {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    width:500px;
+    height:27px;
+    background:white;
+    border-radius: 5px;
+}

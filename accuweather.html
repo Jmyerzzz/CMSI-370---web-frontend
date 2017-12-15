@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
       integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="slider.css">
   </head>
   <body>
     <div class="container">
@@ -27,7 +28,13 @@
         </div>
       </div>
 
-
+        <div>
+          <h6 class="panel-title">City Presets</h6>
+        </div>
+        <div>
+          <div class="rectangle"><div id="rect" class="handle"></div></div>
+          <div><p id="rect1">0</p></div>
+        </div>
 
       <div id=weather-response class="row mt-4"></div>
       <div id=forecast-response class="row mt-4"></div>
@@ -37,6 +44,7 @@
       </div>
     </div>
 
+    <script src="slider.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
@@ -50,5 +58,6 @@
 
     <script src="accuweather.js"></script>
     <script>window.AccuWeatherReport.init()</script>
+
   </body>
 </html>

@@ -1,7 +1,15 @@
 "use strict";
 
 (() => {
+    $(".handle").slider({
+        change: function () {
+            let div1 = $('#rect');
+            let div2 = $('#rect1');
+            div2.text(div1.data('percent'));
+        }
+    });
     window.AccuWeatherReport = {
+
         init: () => {
             let searchTerm = $("#search-term");
             let searchButton = $("#search-button");
@@ -15,13 +23,6 @@
             let forecastUrl = "";
             let locationKey = "";
             let cityName = "";
-            $(".handle").slider({
-                change: function () {
-                    let div1 = $('#rect');
-                    let div2 = $('#rect1');
-                    div2.text(div1.data('percent'));
-                }
-            });
 
             searchButton.click(() => {
                 locationUrl = "http://dataservice.accuweather.com/locations/v1/search?apikey=" +

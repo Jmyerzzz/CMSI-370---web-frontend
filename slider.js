@@ -11,8 +11,6 @@
             $current = $(event.currentTarget);
         });
 
-        // Other mouse events go at the level of the document because
-        // they might leave the element's bounding box.
         $(document).mousemove((event) => {
             if ($current) {
                 let newPosition = event.pageX;
@@ -30,8 +28,6 @@
                     'percent': percentage
                 });
 
-                // Invoke the callback. We want jQuery-like behavior that binds `this` to the component
-                // that change, so we use `call` instead of plain parentheses.
                 if ($.isFunction(options.change)) {
                     options.change.call($current, percentage);
                 }

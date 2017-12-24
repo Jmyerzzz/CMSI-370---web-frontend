@@ -1,15 +1,7 @@
 "use strict";
 
 (() => {
-    $(".handle").slider({
-        change: function () {
-            let div1 = $('#rect');
-            let div2 = $('#rect1');
-            div2.text(div1.data('percent'));
-        }
-    });
     window.AccuWeatherReport = {
-
         init: () => {
             let searchTerm = $("#search-term");
             let searchButton = $("#search-button");
@@ -81,7 +73,6 @@
                 });
 
             });
-
 
             searchTerm.bind("input", () => searchButton.prop("disabled", !searchTerm.val()));
         }
